@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import CoinCard from "./CoinCard";
+import CoinCard from "../ui/CoinCard";
 import {
   animate,
   motion,
   useMotionValue,
   AnimationPlaybackControls,
 } from "framer-motion";
-import BitcoinSpinner from "./BitcoinSpinner";
+import BitcoinSpinner from "../ui/BitcoinSpinner";
 
 const SlidingCard = () => {
   const [coins, setCoins] = useState([]);
@@ -53,11 +53,13 @@ const SlidingCard = () => {
 
   return (
     <>
-      <h2 className="text-center text-2xl font-bold -mb-10 mt-6">Top Trends</h2>
+      <h2 className="text-center text-2xl font-bold -mb-10 mt-6 text-slate-800 dark:text-slate-200">
+        Top Trends
+      </h2>
       <div
         className={`h-70 flex ${
           loading ? "justify-center" : ""
-        } items-center mx-auto w-screen md:w-3/4 overflow-hidden`}
+        } items-center mx-auto w-screen md:w-3/4 overflow-hidden bg-white dark:bg-slate-900`}
       >
         {loading ? (
           <BitcoinSpinner size={60} />

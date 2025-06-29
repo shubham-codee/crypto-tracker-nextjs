@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useState, useEffect} from "react";
-import DisplayRow from "./DisplayRow";
-import PaginationButtons from "./PaginationButtons";
-import BitcoinSpinner from "./BitcoinSpinner";
+import React, { useState, useEffect } from "react";
+import DisplayRow from "../ui/DisplayRow";
+import PaginationButtons from "../ui/PaginationButtons";
+import BitcoinSpinner from "../ui/BitcoinSpinner";
+import { useUserStore } from "@/stores/userStore";
 
 const DisplayTable = () => {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const user = useUserStore((state) => state.user);
 
   const onPageChange = (page: number) => {
     const currOffset = (page - 1) * 20;
@@ -39,10 +41,10 @@ const DisplayTable = () => {
   return (
     <>
       <div className="w-screen md:w-4/5 mx-auto shadow-md overflow-x-auto rounded-lg my-5">
-        <table className="w-full text-md text-left text-gray-500 table-auto">
-          <thead className="text-sm text-gray-800 uppercase bg-gray-200 h-12">
+        <table className="w-full text-md text-left text-gray-500 dark:text-slate-300 table-auto">
+          <thead className="text-sm text-gray-800 dark:text-slate-200 uppercase bg-gray-200 dark:bg-slate-800 h-12">
             <tr>
-              <th scope="col" className="px-6 py-3"></th>
+              {user && <th scope="col" className="px-6 py-3"></th>}
               <th scope="col" className="px-6 py-3">
                 COIN
               </th>
@@ -64,7 +66,7 @@ const DisplayTable = () => {
             {loading ? (
               <tr>
                 <td colSpan={6}>
-                  <BitcoinSpinner size={60}/>
+                  <BitcoinSpinner size={60} />
                 </td>
               </tr>
             ) : (

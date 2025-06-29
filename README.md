@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🪙 CryptoTracker
 
-## Getting Started
+A modern, full-stack cryptocurrency tracker built with **Next.js 15 App Router**, **Tailwind CSS**, and **MongoDB**, featuring interactive charts, real-time data, and authentication.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔍 **Explore Coins**  
+  View live prices, candlestick charts, market cap, volume, and more using the **Mobula API** and **TradingView**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 📈 **Interactive Charts**  
+  Candlestick and line charts rendered via **lightweight-charts** for fast and lightweight visualizations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 💾 **Favorites System**
 
-## Learn More
+  - Previously stored in localStorage, now fully persisted in **MongoDB**.
+  - Favorite system is tied to authenticated users only.
 
-To learn more about Next.js, take a look at the following resources:
+- 🔐 **Authentication (JWT-based)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - Full authentication flow: **Register, Login, Logout**.
+  - Built with **MongoDB** and **JWT** (via `jsonwebtoken`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- ⚠️ **Protected Routes**
 
-## Deploy on Vercel
+  - Coin detail pages are restricted to logged-in users.
+  - Favorites sidebar and functionality are conditionally rendered.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 🌙 **Dark Mode**  
+  Toggle dark/light themes, fully responsive with **Tailwind**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🗂️ Folder Structure
+
+<pre>
+├──📁 app/
+│ ├──📁 api/ → All backend API routes (register, login, logout, etc.)
+│ ├──📁 coin/ → Coin detail pages (protected)
+│ ├──📁 login/ → Login page (UI)
+│ ├──📁 register/ → Register page (UI)
+│ ├──📄 layout.tsx → App-wide layout and providers
+│ └──📄 page.tsx → Home page
+├──📁 components/ → Reusable UI components
+├── lib/
+│ ├──📄 mongodb.ts → MongoDB connection logic
+│ ├──📄 utils.ts → Utility functions
+│ └──📁 validations/ → Zod validation schemas
+├──📁 public/ → Static files
+├──📁 stores/ → Zustand state management
+├──📁 types/ → TypeScript interfaces & types
+</pre>
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js 15 (App Router)**
+- **Tailwind CSS**
+- **MongoDB Atlas**
+- **Zod (validation)**
+- **JWT (authentication)**
+- **Zustand (state management)**
+- **Mobula API**
+- **Lightweight-Charts**
+- **TradingView Widget**
+
+---
+
+## 🔧 Setup Instructions
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/shubham-codee/crypto-tracker-nextjs.git
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Add environment variables**
+
+   Create a `.env.local` file in the root and add the following:
+
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   NEXT_PUBLIC_MOBULA_API=your_mobula_api_secret
+   ```
+
+4. **Run the development server**
+
+    ```bash
+    npm run dev
+    ```

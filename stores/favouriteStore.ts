@@ -2,32 +2,54 @@ import { create } from "zustand";
 
 interface FavouriteState {
   favourites: string[];
-  toggleFavourite: (symbol: string) => void;
-  isFavourite: (symbol: string) => boolean;
+  toggleFavourite: (coinSymbol: string) => void;
+  isFavourite: (coinSymbol: string) => boolean;
   initializeFavourites: () => void;
 }
 
 export const useFavouriteStore = create<FavouriteState>((set, get) => ({
   favourites: [],
 
-  toggleFavourite: (symbol) => {
+  toggleFavourite: async (coinSymbol) => {
     const currFavourites = get().favourites;
+    let updatedFavourites;
 
-    let updatedFavourites = currFavourites.includes(symbol)
-      ? currFavourites.filter((currCoin) => currCoin != symbol)
-      : [...currFavourites, symbol];
+    if (currFavourites.includes(coinSymbol)) {
+      await fetch("/api/favourites", {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ coinSymbol }),
+      });
+      updatedFavourites = currFavourites.filter(
+        (currCoin) => currCoin != coinSymbol
+      );
+    } else {
+      await fetch("/api/favourites", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ coinSymbol }),
+      });
+      updatedFavourites = [...currFavourites, coinSymbol];
+    }
 
     set({ favourites: updatedFavourites });
-    localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
   },
 
-  isFavourite: (symbol) => get().favourites.includes(symbol),
+  isFavourite: (coinSymbol) => get().favourites.includes(coinSymbol),
 
-  initializeFavourites: () => {
-    const storedFavourites = localStorage.getItem("favourites");
-    if (storedFavourites) {
-      const parsedFavourites = JSON.parse(storedFavourites);
-      set({ favourites: parsedFavourites });
+  initializeFavourites: async () => {
+    try {
+      const response = await fetch("/api/favourites", { method: "GET" });
+      if (response.ok) {
+        const { data } = await response.json();
+        set({ favourites: data });
+      }
+    } catch (error) {
+      console.log("favourite store error: ", error);
     }
   },
 }));

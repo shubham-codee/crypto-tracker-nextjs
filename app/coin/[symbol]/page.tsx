@@ -1,4 +1,3 @@
-import BackToHomeButton from "@/components/BackToHomeButton";
 import CoinCandleChart from "@/components/coin-details/CoinCandleChart";
 import CoinHeader from "@/components/coin-details/CoinHeader";
 import MarketStatisticsCard from "@/components/coin-details/MarketStatisticsCard";
@@ -69,8 +68,7 @@ async function Page({ params }: { params: Promise<{ symbol: string }> }) {
 
   return (
     <>
-      <BackToHomeButton />
-      <div className="bg-gray-100 py-6">
+      <div className="bg-gray-100 dark:bg-slate-900 py-6">
         <CoinHeader
           name={name}
           logo={logo}

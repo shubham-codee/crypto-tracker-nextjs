@@ -11,7 +11,7 @@ function FavouriteStar({ coinSymbol }: { coinSymbol: string }) {
       {isFavourite(coinSymbol) ? (
         <MdStar className="w-6 h-6 text-yellow-400 hover:scale-120 transition duration-300 cursor-pointer active:scale-80" />
       ) : (
-        <MdStarBorder className="w-6 h-6 text-gray-400 hover:text-yellow-400 transition duration-300 cursor-pointer active:scale-80" />
+        <MdStarBorder className="w-6 h-6 text-gray-400 dark:text-slate-500 hover:text-yellow-400 dark:hover:text-yellow-400 transition duration-300 cursor-pointer active:scale-80" />
       )}
     </div>
   );
